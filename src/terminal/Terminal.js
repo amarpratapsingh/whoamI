@@ -150,8 +150,16 @@ export function createTerminalApp(rootElement) {
     <main class="terminal-shell">
       <section class="terminal-card" aria-label="Terminal portfolio">
         <header class="terminal-header">
-          <span class="terminal-led" aria-hidden="true"></span>
-          <span class="terminal-title">amar@portfolio:~</span>
+          <div class="terminal-dots" aria-hidden="true">
+            <span class="terminal-dot terminal-dot--red"></span>
+            <span class="terminal-dot terminal-dot--amber"></span>
+            <span class="terminal-dot terminal-dot--green"></span>
+          </div>
+          <div class="terminal-header-info">
+            <span class="terminal-title">amar@portfolio:~</span>
+            <span class="terminal-badge">open to work</span>
+            <span class="terminal-status-dot" aria-hidden="true"></span>
+          </div>
         </header>
         <div class="terminal-body">
           <div class="terminal-xterm" id="terminal-output"></div>
