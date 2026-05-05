@@ -2,6 +2,32 @@ function toSegments(inputPath) {
   return inputPath.split('/').filter(Boolean);
 }
 
+const HOME_PATH = '/home/amar';
+
+function toVirtualPath(path) {
+  if (path === HOME_PATH) {
+    return '/';
+  }
+
+  if (path.startsWith(`${HOME_PATH}/`)) {
+    return path.slice(HOME_PATH.length);
+  }
+
+  return path;
+}
+
+function toFilesystemPath(path) {
+  if (path === HOME_PATH || path === '/') {
+    return '/';
+  }
+
+  if (path.startsWith(`${HOME_PATH}/`)) {
+    return path.slice(HOME_PATH.length);
+  }
+
+  return path;
+}
+
 export function resolvePath(currentPath, targetPath = '') {
   const baseSegments = targetPath.startsWith('/') ? [] : toSegments(currentPath);
   const nextSegments = targetPath.startsWith('/') ? toSegments(targetPath) : toSegments(targetPath);
@@ -24,15 +50,23 @@ export function resolvePath(currentPath, targetPath = '') {
 }
 
 export function formatDisplayPath(path) {
-  return path === '/' ? '~' : `~${path}`;
+  const virtualPath = toVirtualPath(path);
+
+  if (virtualPath === '/') {
+    return '~';
+  }
+
+  return `~${virtualPath}`;
 }
 
 export function getNodeAtPath(filesystem, absolutePath) {
-  if (absolutePath === '/') {
+  const filesystemPath = toFilesystemPath(absolutePath);
+
+  if (filesystemPath === '/') {
     return filesystem;
   }
 
-  return toSegments(absolutePath).reduce((node, segment) => {
+  return toSegments(filesystemPath).reduce((node, segment) => {
     if (!node || typeof node !== 'object') {
       return undefined;
     }

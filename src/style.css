@@ -1,35 +1,18 @@
 :root {
   color-scheme: dark;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
-  --bg-0: #090b12;
-  --bg-1: #0f1320;
-  --panel: rgba(9, 14, 24, 0.78);
-  --panel-border: rgba(118, 210, 255, 0.2);
-  --text-main: #b8ffd7;
-  --text-dim: #89b8d6;
-  --accent-cyan: #76d2ff;
-  --accent-amber: #ffbd74;
-  --accent-mint: #8affc1;
+  --bg-0: #000000;
+  --bg-1: #030303;
+  --panel: rgba(6, 6, 6, 0.92);
+  --panel-border: rgba(255, 255, 255, 0.06);
+  --text-main: #9e9e9e;
+  --text-dim: #6f6f6f;
+  --accent-cyan: #a8a8a8;
+  --accent-amber: #7a7a7a;
+  --accent-mint: #cfcfcf;
   background: var(--bg-0);
   color: var(--text-main);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  min-height: 100%;
-  background:
-    radial-gradient(circle at 18% 0%, rgba(118, 210, 255, 0.12) 0%, transparent 40%),
-    radial-gradient(circle at 100% 0%, rgba(255, 189, 116, 0.08) 0%, transparent 36%),
-    linear-gradient(180deg, var(--bg-1) 0%, var(--bg-0) 64%, #07090e 100%);
-}
-
-body {
-  min-height: 100vh;
+  overflow: hidden;
 }
 
 #app {
@@ -38,22 +21,20 @@ body {
 
 .terminal-shell {
   min-height: 100vh;
-  padding: 24px;
+  padding: 0;
   display: grid;
-  place-items: center;
+  place-items: stretch;
 }
 
 .terminal-card {
-  width: min(1100px, 100%);
-  min-height: min(820px, calc(100vh - 48px));
+  width: 100vw;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--panel-border);
-  border-radius: 20px;
+  border: none;
+  border-radius: 0;
   background: var(--panel);
-  box-shadow:
-    0 24px 80px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(138, 255, 193, 0.06) inset;
+  box-shadow: none;
   overflow: hidden;
 }
 
@@ -62,10 +43,8 @@ body {
   align-items: center;
   gap: 12px;
   padding: 14px 18px;
-  border-bottom: 1px solid rgba(118, 210, 255, 0.12);
-  background:
-    linear-gradient(90deg, rgba(118, 210, 255, 0.08) 0%, rgba(255, 189, 116, 0.06) 40%, rgba(138, 255, 193, 0.04) 100%),
-    rgba(255, 255, 255, 0.015);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  background: transparent;
 }
 
 .terminal-led {
@@ -74,8 +53,8 @@ body {
   width: 11px;
   height: 11px;
   border-radius: 999px;
-  background: var(--accent-mint);
-  box-shadow: 0 0 12px rgba(138, 255, 193, 0.8);
+  background: #bfbfbf;
+  box-shadow: 0 0 8px rgba(191,191,191,0.3);
 }
 
 .terminal-led::before,
@@ -89,14 +68,14 @@ body {
 
 .terminal-led::before {
   transform: translateX(16px);
-  background: var(--accent-amber);
-  box-shadow: 0 0 12px rgba(255, 189, 116, 0.65);
+  background: #8f8f8f;
+  box-shadow: 0 0 8px rgba(143,143,143,0.25);
 }
 
 .terminal-led::after {
   transform: translateX(32px);
-  background: var(--accent-cyan);
-  box-shadow: 0 0 12px rgba(118, 210, 255, 0.65);
+  background: #cfcfcf;
+  box-shadow: 0 0 8px rgba(207,207,207,0.18);
 }
 
 .terminal-title {
@@ -110,7 +89,7 @@ body {
 .terminal-body {
   flex: 1;
   min-height: 0;
-  padding: 18px 20px 20px;
+  padding: 18px 22px 22px;
 }
 
 .terminal-xterm {
@@ -126,9 +105,234 @@ body {
 }
 
 .terminal-xterm .xterm-viewport {
-  scrollbar-color: rgba(118, 210, 255, 0.38) rgba(255, 255, 255, 0.04);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow: hidden;
+}
+
+.terminal-xterm .xterm-viewport::-webkit-scrollbar {
+  display: none;
 }
 
 .terminal-xterm .xterm-rows {
   font-family: inherit;
+}
+
+.boot-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #000000 0%, #090909 50%, #000000 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.8s ease-out;
+}
+
+.boot-overlay--fade {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.boot-overlay--matrix {
+  /* slightly darken overlay to blend with matrix */
+  background: rgba(0,0,0,0.98);
+}
+
+/* Matrix canvas styling */
+.matrix-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000; /* above overlay */
+  pointer-events: none;
+}
+
+.boot-overlay__content {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 48px 56px;
+  padding-bottom: 48px;
+  border: none;
+  border-radius: 0;
+  background: rgba(2,2,2,0.95);
+  box-shadow: none;
+  font-family: inherit;
+}
+
+.boot-overlay__banner {
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+/* Hide decorative banner per user request; keep SVG available but not shown */
+.boot-overlay__banner {
+  display: none !important;
+}
+
+.boot-overlay__title {
+  font-size: 34px;
+  margin: 0;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  text-shadow: 0 6px 28px rgba(0,0,0,0.7), 0 0 8px rgba(255,255,255,0.02);
+  font-weight: 700;
+}
+
+.boot-overlay__subtitle {
+  margin: 4px 0 0 0;
+  color: rgba(160,160,160,0.6);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.boot-overlay__ascii {
+  margin-top: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Courier New', monospace;
+  color: #ffffff;
+  font-size: 15px;
+  letter-spacing: 0.045em;
+  line-height: 1.12;
+  max-height: 280px;
+  overflow: hidden;
+  text-align: center;
+  filter: drop-shadow(0 8px 40px rgba(0,0,0,0.7));
+  font-weight: 700;
+  opacity: 1;
+}
+
+.boot-overlay__svg {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+}
+
+.boot-overlay__output {
+  flex: 1;
+  overflow: hidden;
+  color: #ffffff;
+  font-size: 15px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin-bottom: 24px;
+  font-weight: 500;
+  opacity: 1;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.boot-overlay__output-wrap {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.boot-overlay__noise {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.01) 0px,
+    rgba(0,0,0,0) 1px
+  );
+  mix-blend-mode: screen;
+  opacity: 0.02;
+}
+
+/* subtle vignette */
+.boot-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: transparent;
+  mix-blend-mode: multiply;
+}
+
+.boot-overlay__output::after {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 18px;
+  margin-left: 6px;
+  vertical-align: bottom;
+  background: linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.6));
+  animation: blink-caret 1s steps(1) infinite;
+}
+
+@keyframes blink-caret {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.boot-overlay__output::-webkit-scrollbar {
+  display: none;
+}
+
+.boot-overlay__output::-webkit-scrollbar-track {
+  display: none;
+}
+
+.boot-overlay__output::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+.boot-overlay__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 0;
+  overflow: hidden;
+  z-index: 10001;
+}
+
+.boot-overlay__bar {
+  height: 100%;
+  background: linear-gradient(90deg, #cfcfcf, #9f9f9f, #cfcfcf);
+  width: 0%;
+  animation: boot-progress var(--boot-progress-duration, 7254ms) ease-in-out forwards;
+}
+
+.boot-overlay__counter {
+  position: fixed;
+  right: 24px;
+  bottom: 12px;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  z-index: 10002;
+  pointer-events: none;
+}
+
+@keyframes boot-progress {
+  0% { width: 0%; }
+  40% { width: 50%; }
+  75% { width: 80%; }
+  100% { width: 100%; }
+}
+
+#app {
+  opacity: 0;
+  transition: opacity 0.8s ease-out 0.4s;
+}
+
+#app.visible {
+  opacity: 1;
 }

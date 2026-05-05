@@ -22,27 +22,27 @@ function createTermOptions() {
     lineHeight: 1.35,
     scrollback: 4000,
     theme: {
-      background: '#070b12',
-      foreground: '#b8ffd7',
-      cursor: '#76d2ff',
-      cursorAccent: '#070b12',
-      selectionBackground: 'rgba(118, 210, 255, 0.24)',
-      black: '#121927',
-      red: '#ff7a90',
-      green: '#7dffbf',
-      yellow: '#ffd479',
-      blue: '#76d2ff',
-      magenta: '#d39cff',
-      cyan: '#8df4ff',
-      white: '#d6e6ff',
-      brightBlack: '#4f6179',
-      brightRed: '#ff9db2',
-      brightGreen: '#a4ffd1',
-      brightYellow: '#ffe19f',
-      brightBlue: '#9be1ff',
-      brightMagenta: '#e2b8ff',
-      brightCyan: '#b1fbff',
-      brightWhite: '#f3f8ff',
+      background: '#000000',
+      foreground: '#f2f2f2',
+      cursor: '#ffffff',
+      cursorAccent: '#000000',
+      selectionBackground: 'rgba(255, 255, 255, 0.18)',
+      black: '#050505',
+      red: '#686868',
+      green: '#7a7a7a',
+      yellow: '#8a8a8a',
+      blue: '#9a9a9a',
+      magenta: '#ababab',
+      cyan: '#bcbcbc',
+      white: '#d2d2d2',
+      brightBlack: '#3f3f3f',
+      brightRed: '#7e7e7e',
+      brightGreen: '#909090',
+      brightYellow: '#a2a2a2',
+      brightBlue: '#b4b4b4',
+      brightMagenta: '#c6c6c6',
+      brightCyan: '#d8d8d8',
+      brightWhite: '#ffffff',
     },
   };
 }
@@ -170,7 +170,7 @@ export function createTerminalApp(rootElement) {
   const history = new CommandHistory();
   const commands = createCommandRegistry();
   const state = {
-    cwd: '/',
+    cwd: '/home/amar',
   };
 
   const term = new Terminal(createTermOptions());
@@ -218,6 +218,7 @@ export function createTerminalApp(rootElement) {
 
     bootUnlocked = true;
     bootComplete = true;
+    term.writeln("Type 'help' to see available commands.");
     printPrompt();
     term.focus();
   }
@@ -362,7 +363,11 @@ export function createTerminalApp(rootElement) {
   const bootWatchdog = window.setTimeout(() => {
     term.writeln('Boot watchdog: interactive shell enabled.');
     unlockBoot();
-  }, 4500);
+  }, 8000);
+  // Give the boot overlay sequence more time to finish (typewriter + progress)
+  // Extended to 8000ms so the visual completes before fallback unlock.
+  // This only affects the fallback watchdog, not the normal flow.
+  // NOTE: keep reasonable limit to avoid indefinite lock in case of errors.
 
   void renderBootSequence(term)
     .catch(error => {
@@ -375,6 +380,7 @@ export function createTerminalApp(rootElement) {
     .finally(() => {
       window.clearTimeout(bootWatchdog);
       unlockBoot();
+      document.querySelector('#app')?.classList.add('visible');
     });
 
   return {
