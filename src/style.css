@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
 :root {
   color-scheme: dark;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
@@ -17,7 +19,11 @@
 
 #app {
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
+
+/* ── Shell wrapper ─────────────────────────────────────────── */
 
 .terminal-shell {
   min-height: 100vh;
@@ -25,6 +31,8 @@
   display: grid;
   place-items: stretch;
 }
+
+/* ── Card ──────────────────────────────────────────────────── */
 
 .terminal-card {
   width: 100vw;
@@ -36,7 +44,73 @@
   background: var(--panel);
   box-shadow: none;
   overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 0 0 1px rgba(118, 210, 255, 0.06) inset,
+    0 0 80px rgba(118, 210, 255, 0.05) inset,
+    0 40px 120px rgba(0, 0, 0, 0.6),
+    0 0 100px rgba(118, 210, 255, 0.06),
+    0 0 200px rgba(138, 255, 193, 0.04);
+
+  animation: card-appear 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+
+@keyframes card-appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.983);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* CRT scanlines overlay */
+.terminal-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.06) 3px,
+    rgba(0, 0, 0, 0.06) 4px
+  );
+  pointer-events: none;
+  z-index: 20;
+  border-radius: inherit;
+}
+
+/* Vignette overlay */
+.terminal-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 120% 120% at 50% 50%,
+    transparent 48%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  pointer-events: none;
+  z-index: 19;
+  border-radius: inherit;
+}
+
+/* Focus glow */
+.terminal-card:focus-within {
+  box-shadow:
+    0 0 0 1px rgba(118, 210, 255, 0.1) inset,
+    0 0 80px rgba(118, 210, 255, 0.07) inset,
+    0 40px 120px rgba(0, 0, 0, 0.6),
+    0 0 100px rgba(118, 210, 255, 0.1),
+    0 0 200px rgba(138, 255, 193, 0.06);
+}
+
+/* ── Header ────────────────────────────────────────────────── */
 
 .terminal-header {
   display: flex;
@@ -79,18 +153,60 @@
 }
 
 .terminal-title {
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-dim);
-  margin-left: 38px;
+  font-weight: 500;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
+.terminal-badge {
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  padding: 2px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(138, 255, 193, 0.25);
+  color: var(--accent-mint);
+  background: rgba(138, 255, 193, 0.07);
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+  animation: badge-pulse 3.2s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% { border-color: rgba(138, 255, 193, 0.25); }
+  50%       { border-color: rgba(138, 255, 193, 0.55); box-shadow: 0 0 10px rgba(138, 255, 193, 0.2); }
+}
+
+.terminal-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-mint);
+  box-shadow: 0 0 8px var(--glow-mint);
+  flex-shrink: 0;
+  animation: status-blink 2.6s ease-in-out infinite;
+}
+
+@keyframes status-blink {
+  0%, 100% { opacity: 1; }
+  42%, 58% { opacity: 0.15; }
+}
+
+/* ── Body ──────────────────────────────────────────────────── */
 
 .terminal-body {
   flex: 1;
   min-height: 0;
   padding: 18px 22px 22px;
 }
+
+/* ── xterm.js container ────────────────────────────────────── */
 
 .terminal-xterm {
   width: 100%;
