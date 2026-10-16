@@ -34,4 +34,8 @@ export class CommandHistory {
   reset() {
     this.cursor = this.entries.length;
   }
+
+  getEntries() {
+    return [...this.entries];
+  }
 }

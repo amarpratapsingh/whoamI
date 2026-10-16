@@ -1,0 +1,196 @@
+import { ansi } from '../utils/ansi.js';
+
+export const THEMES = {
+  default: {
+    name: 'Default Obsidian',
+    description: 'Minimalist high-contrast obsidian with mint & cyan accents',
+    termTheme: {
+      background: '#000000',
+      foreground: '#f2f2f2',
+      cursor: '#ffffff',
+      cursorAccent: '#000000',
+      selectionBackground: 'rgba(255, 255, 255, 0.18)',
+      black: '#050505',
+      red: '#ef4444',
+      green: '#22c55e',
+      yellow: '#eab308',
+      blue: '#3b82f6',
+      magenta: '#a855f7',
+      cyan: '#06b6d4',
+      white: '#d2d2d2',
+      brightBlack: '#4b5563',
+      brightRed: '#f87171',
+      brightGreen: '#4ade80',
+      brightYellow: '#fde047',
+      brightBlue: '#60a5fa',
+      brightMagenta: '#c084fc',
+      brightCyan: '#22d3ee',
+      brightWhite: '#ffffff',
+    },
+  },
+  matrix: {
+    name: 'Matrix Phosphor',
+    description: 'Retro green monochrome phosphor glow',
+    termTheme: {
+      background: '#040b04',
+      foreground: '#00ff66',
+      cursor: '#00ff66',
+      cursorAccent: '#040b04',
+      selectionBackground: 'rgba(0, 255, 102, 0.25)',
+      black: '#001a00',
+      red: '#00cc44',
+      green: '#00ff66',
+      yellow: '#66ff99',
+      blue: '#00cc66',
+      magenta: '#00ff88',
+      cyan: '#33ffaa',
+      white: '#b3ffcc',
+      brightBlack: '#004d1a',
+      brightRed: '#00e65c',
+      brightGreen: '#33ff77',
+      brightYellow: '#80ffaa',
+      brightBlue: '#1aff75',
+      brightMagenta: '#4dff94',
+      brightCyan: '#66ffb3',
+      brightWhite: '#e6fffa',
+    },
+  },
+  cyberpunk: {
+    name: 'Cyberpunk Neon',
+    description: 'Electric neon cyan, hot magenta, and night city yellow',
+    termTheme: {
+      background: '#08081a',
+      foreground: '#fdfdfd',
+      cursor: '#00ffea',
+      cursorAccent: '#08081a',
+      selectionBackground: 'rgba(255, 0, 128, 0.3)',
+      black: '#101026',
+      red: '#ff0055',
+      green: '#00ff88',
+      yellow: '#ffe600',
+      blue: '#00bfff',
+      magenta: '#ff00ff',
+      cyan: '#00ffff',
+      white: '#e6e6fa',
+      brightBlack: '#30305a',
+      brightRed: '#ff3377',
+      brightGreen: '#33ffa3',
+      brightYellow: '#ffea33',
+      brightBlue: '#33ccff',
+      brightMagenta: '#ff33ff',
+      brightCyan: '#33ffff',
+      brightWhite: '#ffffff',
+    },
+  },
+  dracula: {
+    name: 'Dracula Dark',
+    description: 'Classic vampire purple, pink, and turquoise',
+    termTheme: {
+      background: '#282a36',
+      foreground: '#f8f8f2',
+      cursor: '#f8f8f2',
+      cursorAccent: '#282a36',
+      selectionBackground: '#44475a',
+      black: '#21222c',
+      red: '#ff5555',
+      green: '#50fa7b',
+      yellow: '#f1fa8c',
+      blue: '#bd93f9',
+      magenta: '#ff79c6',
+      cyan: '#8be9fd',
+      white: '#f8f8f2',
+      brightBlack: '#6272a4',
+      brightRed: '#ff6e6e',
+      brightGreen: '#69ff94',
+      brightYellow: '#ffffa5',
+      brightBlue: '#d6acff',
+      brightMagenta: '#ff92df',
+      brightCyan: '#a4ffff',
+      brightWhite: '#ffffff',
+    },
+  },
+  amber: {
+    name: 'Amber Vintage CRT',
+    description: 'Warm 1970s mainframe amber cathode ray monitor',
+    termTheme: {
+      background: '#120b02',
+      foreground: '#ffb000',
+      cursor: '#ffb000',
+      cursorAccent: '#120b02',
+      selectionBackground: 'rgba(255, 176, 0, 0.25)',
+      black: '#1c1204',
+      red: '#ff8800',
+      green: '#ffaa00',
+      yellow: '#ffcc00',
+      blue: '#ff9900',
+      magenta: '#ffa000',
+      cyan: '#ffb733',
+      white: '#ffd480',
+      brightBlack: '#4d3000',
+      brightRed: '#ff9933',
+      brightGreen: '#ffbb33',
+      brightYellow: '#ffdd33',
+      brightBlue: '#ffaa33',
+      brightMagenta: '#ffb347',
+      brightCyan: '#ffc266',
+      brightWhite: '#ffea80',
+    },
+  },
+  solarized: {
+    name: 'Solarized Dark',
+    description: 'Precision low-contrast colors designed for eye comfort',
+    termTheme: {
+      background: '#002b36',
+      foreground: '#839496',
+      cursor: '#93a1a1',
+      cursorAccent: '#002b36',
+      selectionBackground: '#073642',
+      black: '#073642',
+      red: '#dc322f',
+      green: '#859900',
+      yellow: '#b58900',
+      blue: '#268bd2',
+      magenta: '#d33682',
+      cyan: '#2aa198',
+      white: '#eee8d5',
+      brightBlack: '#586e75',
+      brightRed: '#cb4b16',
+      brightGreen: '#586e75',
+      brightYellow: '#657b83',
+      brightBlue: '#839496',
+      brightMagenta: '#6c71c4',
+      brightCyan: '#93a1a1',
+      brightWhite: '#fdf6e3',
+    },
+  },
+};
+
+export function theme({ args }) {
+  const choice = (args[0] || '').toLowerCase();
+
+  if (!choice || choice === 'list') {
+    const list = Object.entries(THEMES).map(([key, val]) =>
+      `  ${ansi.bold(ansi.brightCyan(key.padEnd(12)))} ${ansi.brightWhite(val.name.padEnd(22))} ${ansi.gray(val.description)}`
+    );
+
+    return [
+      ansi.bold(ansi.brightWhite('AVAILABLE TERMINAL THEMES:')),
+      ansi.gray('─'.repeat(60)),
+      ...list,
+      '',
+      `${ansi.dim('Usage:')} ${ansi.brightYellow('theme <name>')} (e.g. ${ansi.brightGreen('theme matrix')}, ${ansi.brightGreen('theme cyberpunk')})`,
+    ].join('\n');
+  }
+
+  const selected = THEMES[choice];
+
+  if (!selected) {
+    return `${ansi.brightRed('theme:')} Unknown theme "${choice}". Run ${ansi.brightCyan('theme list')} to see options.`;
+  }
+
+  return {
+    output: `${ansi.brightGreen('✓')} Switched terminal theme to ${ansi.bold(selected.name)}!`,
+    theme: selected.termTheme,
+    themeName: choice,
+  };
+}

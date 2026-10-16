@@ -18,6 +18,12 @@ import { ping } from './ping.js';
 import { rm } from './rm.js';
 import { curl } from './curl.js';
 import { hack } from './hack.js';
+import { theme } from './theme.js';
+import { matrix } from './matrix.js';
+import { date } from './date.js';
+import { cowsay } from './cowsay.js';
+import { quote } from './quote.js';
+import { history } from './history.js';
 
 export function createCommandRegistry() {
   return {
@@ -41,6 +47,19 @@ export function createCommandRegistry() {
     rm,
     curl,
     hack,
+    theme,
+    matrix,
+    date,
+    cowsay,
+    quote,
+    history,
+    // Aliases
+    fortune: quote,
+    themes: theme,
+    bio: whoami,
+    about: whoami,
+    cls: clear,
+    dir: ls,
     './contact.sh': contact,
   };
 }

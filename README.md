@@ -20,14 +20,14 @@ A browser-based terminal portfolio that simulates a real Linux shell. Visitors i
 
 | Layer | Technology | Purpose |
 | --- | --- | --- |
-| Terminal | xterm.js v5 | Real terminal emulator for cursor, history, ANSI colors, and resize handling |
-| Terminal | xterm-addon-fit | Responsive terminal sizing for the container and window |
-| Terminal | xterm-addon-webgl | GPU-accelerated rendering for smooth scrolling |
-| ASCII art | figlet.js | ASCII art name on the boot screen |
-| Typewriter | typed.js | Animated typing for boot sequence messages |
-| Effects | tsparticles | Matrix rain and falling character loading effect |
-| Highlighting | highlight.js | Syntax-colored output when catting README files |
-| Build | Vite 5 | Dev server with HMR and static production bundles |
+| Terminal | xterm.js v5 | Real VT100/ANSI terminal emulator for cursor, history, colors, and resize handling |
+| Terminal | xterm-addon-fit | Responsive terminal sizing for the container and viewport |
+| Terminal | xterm-addon-webgl | GPU-accelerated rendering for smooth 60fps scrolling |
+| ASCII art | Custom ANSI Banner | Multi-tier responsive ASCII banner generator (`ascii.js`) |
+| Typewriter | Custom Boot Typewriter | Cancellable typewriter loop with skip support (`BootOverlay.js`) |
+| Effects | Canvas Matrix Rain | Lightweight zero-dependency HTML5 canvas matrix rain (`MatrixRain.js`) |
+| Highlighting | Custom Lexer | Zero-dependency JSON, Markdown, and Shell syntax colorizer (`cat.js`) |
+| Build | Vite | Fast dev server with HMR and static production bundler |
 
 ### 2.2 Languages
 
@@ -132,31 +132,36 @@ The command system uses a simple registry pattern. Each command is a standalone 
 | `cd <dir>` | Changes fake directory and updates the prompt path |
 | `pwd` | Prints the current working directory in the fake filesystem |
 | `clear` | Clears the terminal and re-shows the prompt |
-| `help` | Lists all available commands with short descriptions |
-| `history` | Shows previous commands and supports up/down arrows |
+| `help [cmd]` | Lists categorized commands or detailed syntax for a command |
+| `history [-c]` | Shows numbered command history; supports up/down arrow cycling |
+| `date` | Prints current UTC timestamp |
+| `theme [list\|name]` | Switches terminal theme (default, matrix, cyberpunk, dracula, amber, solarized) |
 
 ### 4.2 Portfolio Commands
 
 | Command | Behavior |
 | --- | --- |
-| `projects` | Prints project cards with name, stack, and GitHub link |
-| `skills` | Colorized skill tree grouped by category |
-| `neofetch` | OS-style info card with skills presented as hardware specs |
-| `resume` | Prints a plain text resume or prompts for download |
-| `open github` | Opens github.com/amarpratapsingh in a new tab |
-| `open linkedin` | Opens the LinkedIn profile |
-| `contact` | Shows email and socials, optionally opens mailto |
+| `whoami` | Identity card with role, university, focus areas, and quick actions |
+| `projects [name]` | Project cards with badges and tech stack; deep-dive breakdown with `projects <name>` |
+| `skills` | Visual dashboard with percentage progress bars and grouped proficiencies |
+| `neofetch` | Authentic OS-style hardware card with ASCII logo and 16-color test blocks |
+| `resume` | Full structured text resume with experience, projects, and curl endpoint |
+| `contact` | Formatted contact card with email, GitHub, LinkedIn, and website |
+| `open <target>` | Opens target (github, linkedin, email, website, resume) in a new tab |
+| `man <command>` | Formatted manual page for commands (man whoami, man projects, etc.) |
 
-### 4.3 Easter Eggs
+### 4.3 Utilities & Easter Eggs
 
 | Command | Behavior |
 | --- | --- |
-| `sudo hire-me` | Prints `Password: ****` and then permission granted |
-| `man amar` | Fake man page with SYNOPSIS, OPTIONS, BUGS, and SEE ALSO |
+| `matrix` | Interactive full-screen digital rain animation canvas |
+| `hack` | Cinematic penetration testing and root escalation sequence |
+| `cowsay [msg]` | Classic ASCII speaking cow terminal joke |
+| `quote` | Random programming and computer science wisdom quote |
+| `sudo hire-me` | Prints `Password: ****` and unlocks permission granted |
 | `rm -rf /` | Fake deletion animation, then a safe joke response |
 | `git log` | Fake commit history with a playful portfolio commit |
-| `ping recruiter` | Animated ping with a recruiter target |
-| `hack` | Matrix rain fills the terminal, then access denied |
+| `ping recruiter` | Animated ping with a recruiter network target |
 | `curl amarpratap.dev` | Tells visitors to run it in a real terminal |
 
 ## 5. Boot Sequence
@@ -174,12 +179,14 @@ The boot sequence runs once on page load. It creates the first impression with a
 [ 1.200]  Starting services: portfolio.service  [  OK  ]
 [ 2.800]  Boot complete. Welcome.
 
-  ___  __  __   _   ____
- / _ \|  \/  | /_\ |  _ \\
-| (_) | |\/| |/ _ \| |_) |
- \___/\_|  |_/_/ \_\____/
+    ___    __  ______    ____     ____  ____  ___  _________    ____     _____ _____   __________  __
+   /   |  /  |/  /   |  / __ \   / __ \/ __ \/   |/_  __/   |  / __ \   / ___//  _/ | / / ____/ / / /
+  / /| | / /|_/ / /| | / /_/ /  / /_/ / /_/ / /| | / / / /| | / /_/ /   \__ \ / //  |/ / / __/ /_/ / 
+ / ___ |/ /  / / ___ |/ _, _/  / ____/ _, _/ ___ |/ / / ___ |/ ____/   ___/ // // /|  / /_/ / __  /  
+/_/  |_/_/  /_/_/  |_/_/ |_|  /_/   /_/ |_/_/  |_/_/ /_/  |_/_/       /____/___/_/ |_/\____/_/ /_/   
 
-Type 'help' to see available commands.
+  Amar Pratap Singh  •  CS Engineer  •  KIIT, Bhubaneswar
+  Type 'help' to see available commands, or 'whoami' for profile.
 ```
 
 ## 6. Virtual Filesystem
@@ -193,6 +200,8 @@ export const FS = {
   'skills.json': JSON.stringify({ languages: [...], tools: [...] }),
   'resume.pdf': '[binary] - use: open resume',
   projects: {
+    'threadtrace.md': '# ThreadTrace — High-Throughput CLI Log Analyzer\n...',
+    'airsocket.md': '# AirSocket — Resilient P2P File Transfer & Networking Lab\n...',
     'elderly-care-system.md': '# Elderly Care System\n...',
     'automate-suite.md': '# AutomateSuite\n...',
     'ml-experiments.md': '# ML Experiments\n...',
@@ -223,11 +232,11 @@ export default {
 \x1b[90m  CS Engineer  |  KIIT, Bhubaneswar\x1b[0m
 
 \x1b[1;37m  SKILLS\x1b[0m
-  Python - Linux - ML/AI - Docker - Azure - Git
+  Java 21+ - Loom - GraalVM AOT - Raw Sockets - AES-GCM - Linux - Docker
 
 \x1b[1;37m  PROJECTS\x1b[0m
-  elderly-care-system  github.com/amarpratapsingh/ECS
-  automate-suite       github.com/amarpratapsingh/automate
+  ThreadTrace  github.com/amarpratapsingh/ThreadTrace (1.34 GB/s)
+  AirSocket    github.com/amarpratapsingh/AirSocket (P2P Transfer)
 
 \x1b[1;37m  CONTACT\x1b[0m
   amar@kiit.ac.in  |  github.com/amarpratapsingh

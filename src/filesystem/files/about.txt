@@ -1,0 +1,7 @@
+Amar Pratap Singh
+Systems & Software Engineer | CS Undergrad at KIIT, Bhubaneswar
+Open to opportunities
+Focus: Low-Level Networking, Concurrency (Java 21 Loom Virtual Threads), High-Performance Systems & GraalVM AOT
+Flagship Projects:
+  • ThreadTrace (1.34 GB/s Multi-Threaded CLI Log Analyzer)
+  • AirSocket (Zero-Dependency P2P Encrypted File Transfer & TCP Performance Lab)

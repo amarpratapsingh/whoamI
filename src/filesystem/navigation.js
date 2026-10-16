@@ -1,36 +1,24 @@
 function toSegments(inputPath) {
-  return inputPath.split('/').filter(Boolean);
+  return (inputPath || '').split('/').filter(Boolean);
 }
 
-const HOME_PATH = '/home/amar';
-
-function toVirtualPath(path) {
-  if (path === HOME_PATH) {
-    return '/';
-  }
-
-  if (path.startsWith(`${HOME_PATH}/`)) {
-    return path.slice(HOME_PATH.length);
-  }
-
-  return path;
-}
-
-function toFilesystemPath(path) {
-  if (path === HOME_PATH || path === '/') {
-    return '/';
-  }
-
-  if (path.startsWith(`${HOME_PATH}/`)) {
-    return path.slice(HOME_PATH.length);
-  }
-
-  return path;
-}
+export const HOME_PATH = '/home/amar';
 
 export function resolvePath(currentPath, targetPath = '') {
-  const baseSegments = targetPath.startsWith('/') ? [] : toSegments(currentPath);
-  const nextSegments = targetPath.startsWith('/') ? toSegments(targetPath) : toSegments(targetPath);
+  let target = (targetPath || '').trim();
+
+  // If empty or explicitly '~', return HOME_PATH
+  if (!target || target === '~') {
+    return HOME_PATH;
+  }
+
+  // Handle '~/' prefix
+  if (target === '~' || target.startsWith('~/')) {
+    target = target.replace(/^~(?:\/|$)/, `${HOME_PATH}/`);
+  }
+
+  const baseSegments = target.startsWith('/') ? [] : toSegments(currentPath);
+  const nextSegments = toSegments(target);
   const segments = [...baseSegments];
 
   for (const segment of nextSegments) {
@@ -39,34 +27,38 @@ export function resolvePath(currentPath, targetPath = '') {
     }
 
     if (segment === '..') {
-      segments.pop();
+      if (segments.length > 0) {
+        segments.pop();
+      }
       continue;
     }
 
     segments.push(segment);
   }
 
-  return `/${segments.join('/')}`.replace(/\/+/g, '/');
+  return segments.length === 0 ? '/' : `/${segments.join('/')}`;
 }
 
 export function formatDisplayPath(path) {
-  const virtualPath = toVirtualPath(path);
-
-  if (virtualPath === '/') {
+  if (path === HOME_PATH) {
     return '~';
   }
 
-  return `~${virtualPath}`;
+  if (path.startsWith(`${HOME_PATH}/`)) {
+    return `~${path.slice(HOME_PATH.length)}`;
+  }
+
+  return path || '/';
 }
 
 export function getNodeAtPath(filesystem, absolutePath) {
-  const filesystemPath = toFilesystemPath(absolutePath);
+  const segments = toSegments(absolutePath);
 
-  if (filesystemPath === '/') {
+  if (segments.length === 0) {
     return filesystem;
   }
 
-  return toSegments(filesystemPath).reduce((node, segment) => {
+  return segments.reduce((node, segment) => {
     if (!node || typeof node !== 'object') {
       return undefined;
     }
@@ -98,3 +90,4 @@ export function readFile(filesystem, absolutePath) {
 
   return node;
 }
+

@@ -1,0 +1,26 @@
+AMAR PRATAP SINGH
+Systems & Software Engineer | KIIT Bhubaneswar | CGPA: 7.97/10
+Phone: +91 6370550534 | Email: amar.p.s.1509@gmail.com
+LinkedIn: https://linkedin.com/in/amar-pratap-singh | GitHub: https://github.com/amarpratapsingh
+
+[EDUCATION]
+  Kalinga Institute of Industrial Technology (KIIT) — Bhubaneswar, Odisha
+  Bachelor of Technology in Computer Science & Engineering (2023 – Present) | CGPA: 7.97 / 10
+  Relevant Coursework: Data Structures & Algorithms, Operating Systems, DBMS, Computer Networks, OOP, Cloud Computing
+
+[RESEARCH EXPERIENCE & PUBLICATIONS]
+  Explainable Artificial Intelligence for Transparent Medical Diagnosis
+  Research Co-author & Presenter — ComSIA-2026 (March 2026)
+  • Literature analysis of XAI techniques in healthcare (SHAP, LIME, Grad-CAM).
+  • Evaluated AI transparency, clinical trust, bias, and diagnostic interpretability in healthcare.
+  • Co-authored and presented peer-reviewed research paper at ComSIA-2026.
+
+[KEY ENGINEERING PROJECTS]
+  • ThreadTrace — Multi-threaded CLI log parser in Java 21 & GraalVM AOT (<8ms startup, 1.34 GB/s peak throughput).
+  • AirSocket — Zero-dependency P2P encrypted file streamer & networking lab in Java 21 (5.41x TCP scaling to 886 Mbps).
+  • BitGit — Distributed Git-compatible version control system from scratch in Node.js with SHA-1 storage.
+
+[CERTIFICATIONS]
+  • Java Development Certification — Udemy (Jan 2025): Core Java, OOP, Multithreading, File I/O, Collections
+
+Run `curl amarpratap.dev` in a real terminal for the full ANSI resume.

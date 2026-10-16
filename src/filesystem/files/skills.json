@@ -1,0 +1,29 @@
+{
+  "languages": ["Java (21+)", "C", "C++", "JavaScript", "TypeScript", "Python", "Bash / POSIX"],
+  "systems_networking": [
+    "Raw TCP/UDP Sockets",
+    "Project Loom (Virtual Threads)",
+    "GraalVM Native Image (AOT)",
+    "AES-256-GCM / PBKDF2 Cryptography",
+    "Custom Binary Framing Protocols",
+    "Socket Buffer & TCP Window Tuning",
+    "Linux Traffic Control (tc/netem)"
+  ],
+  "backend": [
+    "High-Throughput Concurrency",
+    "Zero-Allocation Parsing",
+    "Memory-Mapped Files (Mmap)",
+    "Spring Boot",
+    "Node.js"
+  ],
+  "database": ["PostgreSQL", "MySQL", "SQLite (Offline/Edge)", "MongoDB"],
+  "frontend": ["xterm.js (VT100/WebGL)", "HTML5 / Canvas", "CSS3 (Scanlines/CRT)", "Vite", "React"],
+  "tools": [
+    "Linux (Arch/Debian)",
+    "Git & GitHub Actions CI/CD",
+    "Docker (Distroless Native)",
+    "JaCoCo Code Coverage",
+    "SpotBugs & Checkstyle",
+    "Neovim & Tmux"
+  ]
+}
