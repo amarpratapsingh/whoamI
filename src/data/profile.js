@@ -13,35 +13,63 @@ export const PROFILE = {
 };
 
 export const SKILLS = {
-  languages: ['Java (21+)', 'C', 'C++', 'JavaScript (ES2024)', 'TypeScript', 'Python', 'Bash / POSIX'],
-  systems_networking: [
-    'Raw TCP/UDP Sockets',
-    'Project Loom (Virtual Threads)',
-    'GraalVM Native Image (AOT)',
-    'AES-256-GCM / PBKDF2 Cryptography',
-    'Custom Binary Framing Protocols',
-    'Socket Buffer & TCP Window Tuning',
-    'Linux Traffic Control (tc/netem)',
+  languages: ['Java', 'C', 'C++', 'Python'],
+  frontend: [
+    'React.js',
+    'Next.js',
+    'HTML5',
+    'CSS3',
+    'Tailwind CSS',
+    'JavaScript / TypeScript',
+    'Vite',
   ],
   backend: [
-    'High-Throughput Concurrency',
-    'Zero-Allocation Parsing',
-    'Memory-Mapped Files (Mmap)',
     'Spring Boot',
     'Node.js & Express',
+    'RESTful APIs',
+    'Concurrency & Multi-Threading',
+    'Microservices Architecture',
   ],
-  database: ['PostgreSQL', 'SQL', 'SQLite (Offline/Edge)', 'MongoDB'],
-  frontend: ['React.js', 'xterm.js (VT100/WebGL)', 'HTML5 / Canvas', 'Tailwind CSS', 'CSS3 (Scanlines/CRT)', 'Vite'],
+  databases: ['PostgreSQL', 'MySQL / SQL', 'MongoDB', 'SQLite', 'Redis'],
   tools: [
-    'Linux (Arch/Debian)',
-    'Git & GitHub Actions CI/CD',
-    'Docker (Distroless Native)',
+    'Git & GitHub',
+    'Docker & Containers',
+    'Linux / Bash Shell',
+    'GitHub Actions CI/CD',
     'Maven Build System',
-    'JaCoCo Code Coverage',
-    'SpotBugs & Checkstyle',
     'Neovim & Tmux',
   ],
+  conceptual_concepts: [
+    'Data Structures & Algorithms (DSA)',
+    'Operating Systems (OS)',
+    'Computer Networks (CN)',
+    'Database Management Systems (DBMS)',
+    'Object-Oriented Programming (OOP / SOLID)',
+    'System Design & Distributed Systems',
+  ],
+  systems_architecture: [
+    'Raw TCP/UDP Sockets',
+    'Binary Framing Protocols',
+    'GraalVM Native Image (AOT)',
+    'AES-256-GCM / PBKDF2 Cryptography',
+    'Zero-Allocation Parsing',
+    'Memory-Mapped Files (Mmap)',
+  ],
 };
+
+Object.defineProperty(SKILLS, 'database', {
+  get() {
+    return this.databases;
+  },
+  enumerable: false,
+});
+
+Object.defineProperty(SKILLS, 'systems_networking', {
+  get() {
+    return this.systems_architecture;
+  },
+  enumerable: false,
+});
 
 export const PROJECTS = [
   {

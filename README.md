@@ -139,7 +139,7 @@ The terminal supports standard Unix shell features: **Tab completion** for comma
 | `whoami` | `whoami` | Renders developer persona, education, and contact in a code-editor window (`whoami.json`). |
 | `projects` | `projects [name]` | Renders all flagship builds in `projects.json` format. Run `projects threadtrace`, `projects airsocket`, or `projects bitgit` for architectural deep dives. |
 | `resume` | `resume` | Displays full structured ANSI resume matching `APS.pdf` (KIIT CGPA 7.97, ComSIA-2026 paper, ThreadTrace, AirSocket, BitGit). |
-| `skills` | `skills` | Visual dashboard of proficiencies with graphical progress bars across Systems, Networking, Backend, and Frontend. |
+| `skills` | `skills` | Visual dashboard of proficiencies with graphical progress bars across Languages, Frontend, Backend, Databases, Tools, Conceptual Concepts, and Systems. |
 | `contact` | `contact` | Displays phone, email, GitHub, LinkedIn, and website in a code-editor card (`contact.json`). |
 | `neofetch` | `neofetch` | Hardware spec summary spoofing skills as system hardware alongside a 16-color test swatch. |
 | `open` | `open <target>` | Opens target in a new browser tab (`open resume` opens `/resume.pdf`; supports `github`, `linkedin`, `email`, `website`, `threadtrace`, `airsocket`, `bitgit`, or custom URLs). |

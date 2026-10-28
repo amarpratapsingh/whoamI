@@ -46,7 +46,7 @@ const MAN_PAGES = {
   skills: {
     title: 'SKILLS(1)',
     synopsis: 'skills',
-    description: 'Render an interactive dashboard of systems programming, networking protocols, high-performance architecture, and frontend terminal proficiencies.',
+    description: 'Render an interactive dashboard of programming languages, frontend/backend engineering, databases, tools, conceptual concepts, and systems architecture.',
     bugs: 'Continuous learning causes numbers to increase.',
     seeAlso: 'neofetch(1)',
   },

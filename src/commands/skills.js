@@ -3,54 +3,84 @@ import { ansi } from '../utils/ansi.js';
 export function skills() {
   const categories = [
     {
-      title: 'SYSTEMS PROGRAMMING & CONCURRENCY',
+      title: 'Languages',
       color: 'brightCyan',
       items: [
-        { name: 'Java 21+ (java.base)', pct: 95, tag: 'Virtual Threads (Loom), Sealed Types, Zero-Alloc' },
-        { name: 'GraalVM Native Image', pct: 90, tag: 'AOT Compilation, <8ms Cold Startup, Substrate VM' },
-        { name: 'C / C++', pct: 82, tag: 'Memory Management, Pointers, POSIX Syscalls' },
-        { name: 'Bash / Linux Shell', pct: 90, tag: 'POSIX Shell, Kernel Traffic Control (tc), Systemd' },
-        { name: 'Python', pct: 88, tag: 'Automation, System Tooling, Test Orchestration' },
+        { name: 'Java', pct: 95, tag: 'Java 21+, Virtual Threads (Loom), Concurrency, Memory Optimization' },
+        { name: 'C', pct: 85, tag: 'Pointers, Manual Memory Management, POSIX Syscalls, Structs' },
+        { name: 'C++', pct: 85, tag: 'STL Containers, RAII, Object-Oriented Programming, Low-Level I/O' },
+        { name: 'Python', pct: 88, tag: 'Automation, Scripting, Data Analysis, Fast Prototyping' },
       ],
     },
     {
-      title: 'NETWORKING & PROTOCOL DESIGN',
-      color: 'brightYellow',
-      items: [
-        { name: 'Raw Sockets (TCP/UDP)', pct: 94, tag: 'SO_SNDBUF/RCVBUF Tuning, Nagle, RTT Ping Telemetry' },
-        { name: 'Binary Framing Protocols', pct: 92, tag: '28-Byte Fixed Headers, Big-Endian, Frame Types' },
-        { name: 'Applied Cryptography', pct: 88, tag: 'AES-256-GCM AEAD, PBKDF2 (100k rounds), Anti-Tamper' },
-        { name: 'Deterministic State Machines', pct: 90, tag: 'FSM Session Lifecycles, Binary Crash Journals' },
-      ],
-    },
-    {
-      title: 'HIGH-PERFORMANCE ARCHITECTURE & OBSERVABILITY',
-      color: 'brightGreen',
-      items: [
-        { name: 'Zero-Allocation Parsing', pct: 95, tag: 'Positional Scanner, Regex NFA Bypass (10x speedup)' },
-        { name: 'Memory-Mapped I/O (Mmap)', pct: 88, tag: 'Boundary-Aligned Partitioning, GZIP Streams' },
-        { name: 'Linux Traffic Simulation', pct: 86, tag: 'Kernel tc/netem Latency, Jitter & Loss Emulation' },
-        { name: 'Observability & Dashboards', pct: 88, tag: 'Embedded Web Servers, Multi-Format Exporters' },
-      ],
-    },
-    {
-      title: 'FRONTEND CRAFT & TERMINAL INTERFACES',
+      title: 'Frontend',
       color: 'brightMagenta',
       items: [
-        { name: 'xterm.js & Terminal UX', pct: 92, tag: 'VT100, ANSI Escape Codes, WebGL GPU Rendering' },
-        { name: 'HTML5 / CSS3 / Canvas', pct: 94, tag: 'CRT Scanlines, CRT Phosphor Glow, Responsive' },
-        { name: 'JavaScript / TypeScript', pct: 92, tag: 'Modern ES2024, Node.js, Event Loops, DOM APIs' },
-        { name: 'Vite & Build Tooling', pct: 90, tag: 'HMR, Plugins, Tree-Shaking, Static Bundling' },
+        { name: 'React.js', pct: 92, tag: 'Hooks, Functional Components, State Management, Virtual DOM' },
+        { name: 'Next.js', pct: 88, tag: 'Server-Side Rendering (SSR), App Router, Static Site Generation' },
+        { name: 'HTML5', pct: 95, tag: 'Semantic Markup, Accessibility (a11y), DOM, Canvas API' },
+        { name: 'CSS3', pct: 92, tag: 'Flexbox, CSS Grid, Responsive Design, CRT / Scanline Effects' },
+        { name: 'Tailwind CSS', pct: 94, tag: 'Utility-First Styling, Responsive Breakpoints, Custom Design Systems' },
+        { name: 'JavaScript / TypeScript', pct: 92, tag: 'Modern ES2024+, Async/Await, Strict Typing, DOM APIs' },
+        { name: 'Vite', pct: 90, tag: 'HMR, Fast Bundling, Asset Optimization, Tree Shaking' },
       ],
     },
     {
-      title: 'ENGINEERING RIGOR, VERIFICATION & DEVOPS',
+      title: 'Backend',
+      color: 'brightGreen',
+      items: [
+        { name: 'Spring Boot', pct: 90, tag: 'RESTful APIs, Dependency Injection, Spring Security, Hibernate/JPA' },
+        { name: 'Node.js & Express', pct: 88, tag: 'Event-Driven Async I/O, REST APIs, Middleware Architecture' },
+        { name: 'RESTful APIs', pct: 92, tag: 'API Design, JSON Schemas, Authentication & Middleware' },
+        { name: 'Concurrency & Multi-Threading', pct: 94, tag: 'Virtual Threads (Project Loom), Work-Stealing Pools, Thread Safety' },
+        { name: 'Microservices Architecture', pct: 86, tag: 'Service Decoupling, Inter-Service Communication, Resilience' },
+      ],
+    },
+    {
+      title: 'Databases',
+      color: 'brightYellow',
+      items: [
+        { name: 'PostgreSQL', pct: 90, tag: 'Relational Modeling, Indexing, ACID Compliance, Complex Queries' },
+        { name: 'MySQL / SQL', pct: 88, tag: 'Schema Design, Joins, Aggregations, Stored Procedures, Views' },
+        { name: 'MongoDB', pct: 85, tag: 'NoSQL Document Store, Aggregation Pipelines, Collections' },
+        { name: 'SQLite', pct: 92, tag: 'Embedded/Edge Storage, Zero-Config, Fast Local Persistence' },
+        { name: 'Redis', pct: 84, tag: 'In-Memory Data Store, Caching Strategies, Pub/Sub, Fast Lookups' },
+      ],
+    },
+    {
+      title: 'Tools',
       color: 'brightBlue',
       items: [
-        { name: 'Git & GitHub Actions CI/CD', pct: 92, tag: 'Multi-OS Matrix (Ubuntu, macOS, Windows)' },
-        { name: 'Static & Bytecode Analysis', pct: 90, tag: 'SpotBugs Leak Analysis, Checkstyle (0 violations)' },
-        { name: 'Code Coverage & Profiling', pct: 88, tag: 'JaCoCo Coverage, Heap/GC Pause System Profiling' },
-        { name: 'Docker & Distroless', pct: 86, tag: 'Minimal <32MB Native Containers, Multi-Stage Builds' },
+        { name: 'Git & GitHub', pct: 94, tag: 'Version Control, Branching Strategies, PRs, Merge Conflicts' },
+        { name: 'Docker & Containers', pct: 88, tag: 'Containerization, Multi-Stage Builds, Distroless Images' },
+        { name: 'Linux / Bash Shell', pct: 92, tag: 'POSIX Shell Scripting, Arch/Debian, System Administration' },
+        { name: 'GitHub Actions CI/CD', pct: 88, tag: 'Automated Testing, Continuous Integration, Multi-OS Matrix' },
+        { name: 'Maven Build System', pct: 90, tag: 'Dependency Management, Build Automation, Plugins' },
+        { name: 'Neovim & Tmux', pct: 90, tag: 'Terminal Productivity, Modal Editing, Session Multiplexing' },
+      ],
+    },
+    {
+      title: 'Conceptual Concepts',
+      color: 'brightRed',
+      items: [
+        { name: 'Data Structures & Algorithms', pct: 92, tag: 'Arrays, Trees, Graphs, Hash Maps, DP, Complexity Analysis' },
+        { name: 'Operating Systems (OS)', pct: 90, tag: 'Process Scheduling, Concurrency & Deadlocks, Virtual Memory, Syscalls' },
+        { name: 'Computer Networks (CN)', pct: 92, tag: 'TCP/IP, UDP Sockets, OSI Layers, DNS, HTTP/HTTPS Handshakes' },
+        { name: 'DBMS & Relational Theory', pct: 90, tag: 'ACID Properties, Normalization, Indexing, Transactions, Concurrency' },
+        { name: 'Object-Oriented Design (OOP)', pct: 94, tag: 'Encapsulation, Inheritance, Polymorphism, Abstraction, SOLID' },
+        { name: 'System Design & Distributed', pct: 86, tag: 'Scalability, Load Balancing, Caching, P2P Architecture, Fault Tolerance' },
+      ],
+    },
+    {
+      title: 'Systems & Architecture',
+      color: 'brightWhite',
+      items: [
+        { name: 'Raw Sockets (TCP/UDP)', pct: 94, tag: 'Socket Tuning, Buffer Sizing, Nagle Algorithm, RTT Telemetry' },
+        { name: 'Binary Framing Protocols', pct: 92, tag: 'Fixed Headers, Network Byte Order (Big-Endian), Custom Frame Types' },
+        { name: 'GraalVM Native Image (AOT)', pct: 90, tag: 'Ahead-of-Time Compilation, <8ms Cold Startup, Substrate VM' },
+        { name: 'Applied Cryptography', pct: 88, tag: 'AES-256-GCM AEAD, PBKDF2 (100k rounds), Anti-Tamper Verification' },
+        { name: 'Zero-Allocation Parsing', pct: 94, tag: 'Positional Scanner, Regex NFA Bypass, Flyweight Pattern' },
+        { name: 'Memory-Mapped I/O (Mmap)', pct: 88, tag: 'Boundary-Aligned Partitioning, Zero-Copy Stream Processing' },
       ],
     },
   ];
@@ -58,7 +88,7 @@ export function skills() {
   const lines = [
     ansi.bold(ansi.brightWhite('TECHNICAL SKILLS & PROFICIENCIES')),
     ansi.gray('═'.repeat(70)),
-    ansi.dim('Mastery across systems-level software, networking protocols, and terminal user experiences.'),
+    ansi.dim('Languages, full-stack technologies, developer tooling, core CS concepts, and systems architecture.'),
     '',
   ];
 
